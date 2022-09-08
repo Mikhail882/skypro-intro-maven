@@ -24,41 +24,43 @@ public class CalculatorController {
     }
 
     @GetMapping("/plus")
-    public String plus(@RequestParam(value = "num1", required = false) Float a, @RequestParam(value = "num2", required = false) Float b) {
+    public String plus(@RequestParam(value = "num1", required = false) Integer a,
+                       @RequestParam(value = "num2", required = false) Integer b) {
         if(Objects.isNull(a) || Objects.isNull(b)) {
-            return "Не правильно переданы параметры!";
+            return "Оба параметра должны быть переданы!";
         }
-        return buildString(a,b, calculatorService.plus(a,b), "+");
+        return buildString(a,b, calculatorService.plus(a, b), "+");
     }
 
 
     @GetMapping("/minus")
-    public String minus(@RequestParam(value = "num1", required = false) Float a, @RequestParam(value = "num2", required = false) Float b) {
+    public String minus(@RequestParam(value = "num1", required = false) Integer a,
+                        @RequestParam(value = "num2", required = false) Integer b) {
         if(Objects.isNull(a)||Objects.isNull(b)){
-            return "Не правильно переданы параметры!";
+            return "Оба параметра должны быть переданы!";
         }
-        return buildString(a,b, calculatorService.minus(a,b), "-");
+        return buildString(a,b, calculatorService.minus(a, b), "-");
     }
 
     @GetMapping("/multiply")
-    public String multiply(@RequestParam(value = "num1", required = false) Float a, @RequestParam(value = "num2", required = false) Float b) {
+    public String multiply(@RequestParam(value = "num1", required = false) Integer a,
+                           @RequestParam(value = "num2", required = false) Integer b) {
         if(Objects.isNull(a)||Objects.isNull(b)){
-            return "Не правильно переданы параметры!";
+            return "Оба параметра должны быть переданы!";
         }return buildString(a, b, calculatorService.multiply(a, b), "*");
     }
 
     @GetMapping("/devide")
-    public String devide(@RequestParam(value = "num1", required = false) Float a, @RequestParam(value = "num2", required = false) Float b) {
+    public String devide(@RequestParam(value = "num1", required = false) Integer a,
+                         @RequestParam(value = "num2", required = false) Integer b) {
         if(Objects.isNull(a)||Objects.isNull(b)){
-            return "Не правильно переданы параметры!";
-        }if (b == 0) {
-            return "На ноль делить нельзя!";
+            return "Оба параметра должны быть переданы!";
         }
-        return buildString(a, b, calculatorService.devide(a,b), "/");
+        return buildString(a, b, (int) calculatorService.devide(a, b), "/");
         }
 
-        private String buildString(float a, float b, float result, String operation){
-        return String.format("%.1f %s %.1f = %.1f", a, operation, b, result);
+        private String buildString(Integer a, Integer b, Integer result, String operation){
+        return String.format("%s %s %s = %s", a, operation, b, result);
         }
 
     }
